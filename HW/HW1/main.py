@@ -218,14 +218,14 @@ def q7(k: int, trials: int, steps: int):
     up_ste = upper_avg / np.sqrt(trials)
     c1_h = (c1 + 1.96 * ste[0])
     c1_l = (c1 - 1.96 * ste[0])
-    c2_h = (c1 + 1.96 * ste[1])
-    c2_l = (c1 - 1.96 * ste[1])
-    c3_h = (c1 + 1.96 * ste[2])
-    c3_l = (c1 - 1.96 * ste[2])
-    c4_h = (c1 + 1.96 * ste[3])
-    c4_l = (c1 - 1.96 * ste[3])
-    c5_h = (c1 + 1.96 * ste[4])
-    c5_l = (c1 - 1.96 * ste[4])
+    c2_h = (c2 + 1.96 * ste[1])
+    c2_l = (c2 - 1.96 * ste[1])
+    c3_h = (c3 + 1.96 * ste[2])
+    c3_l = (c3 - 1.96 * ste[2])
+    c4_h = (c4 + 1.96 * ste[3])
+    c4_l = (c4 - 1.96 * ste[3])
+    c5_h = (c5 + 1.96 * ste[4])
+    c5_l = (c5 - 1.96 * ste[4])
 
 
     upper_h = (upper_avg + 1.96 * up_ste)
@@ -252,13 +252,13 @@ def q7(k: int, trials: int, steps: int):
     x = np.arange(steps)
     ax1.axhline(upper_avg, linestyle='--')
     print(c1_l[0:4],c1_h[0:4])
-    ax1.fill_between(x, c1_l, c1_h, alpha=0.1, color='mediumseagreen')
-    # ax1.fill_between(x, c2_l, c2_h, alpha=0.1, color='tomato')
-    # ax1.fill_between(x, c3_l, c3_h, alpha=0.1, color='skyblue')
-    # ax1.fill_between(x, c4_l, c4_h, alpha=0.1, color='pink')
-    # ax1.fill_between(x, c5_l, c5_h, alpha=0.1, color='violet')
+    ax1.fill_between(x, c1_l, c1_h, alpha=0.4, color='mediumseagreen')
+    ax1.fill_between(x, c2_l, c2_h, alpha=0.4, color='tomato')
+    ax1.fill_between(x, c3_l, c3_h, alpha=0.4, color='skyblue')
+    ax1.fill_between(x, c4_l, c4_h, alpha=0.4, color='pink')
+    ax1.fill_between(x, c5_l, c5_h, alpha=0.4, color='violet')
 
-    # ax1.fill_between(x, upper_l, upper_h, alpha=0.3)
+    ax1.fill_between(x, upper_l, upper_h, alpha=0.3)
 
     ax1.set_xlabel("Steps", fontsize=23)
     ax2.set_xlabel("Steps", fontsize=23)
@@ -277,8 +277,8 @@ def q7(k: int, trials: int, steps: int):
 def main():
     # TODO run code for all questions
     # q4(10, 2000)
-    q6(10, 2000, 2000)
-    # q7(10, 2000, 1000)
+    # q6(10, 2000, 2000)
+    q7(10, 2000, 1000)
 
 
 if __name__ == "__main__":
