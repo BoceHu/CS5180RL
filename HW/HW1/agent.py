@@ -13,7 +13,9 @@ def argmax(arr: Sequence[float]) -> int:
         arr: sequence of values
     """
     # TODO
-    pass
+    max_indx = np.where(arr == arr.max())[0]
+    random_max_indx = np.random.choice(max_indx)
+    return random_max_indx
 
 
 class BanditAgent(ABC):
@@ -65,7 +67,7 @@ class BanditAgent(ABC):
 
 class EpsilonGreedy(BanditAgent):
     def __init__(
-        self, k: int, init: int, epsilon: float, step_size: Optional[float] = None
+            self, k: int, init: int, epsilon: float, step_size: Optional[float] = None
     ) -> None:
         """Epsilon greedy bandit agent
 
@@ -84,7 +86,11 @@ class EpsilonGreedy(BanditAgent):
         With probability 1 - epsilon, choose the best action (break ties arbitrarily, use argmax() from above). With probability epsilon, choose a random action.
         """
         # TODO
-        action = None
+        flag = np.random.random()
+        if flag >= self.epsilon:
+            action = argmax(self.Q)
+        else:
+            action = np.random.choice(self.k)
         return action
 
     def update(self, action: int, reward: float) -> None:
@@ -97,14 +103,14 @@ class EpsilonGreedy(BanditAgent):
         self.t += 1
 
         # TODO update self.N
-
+        self.N[action] += 1
         # TODO update self.Q
         # If step_size is given (static step size)
         if self.step_size is not None:
-            pass
+            self.Q[action] += self.step_size * (reward - self.Q[action])
         # If step_size is dynamic (step_size = 1 / N(a))
         else:
-            pass
+            self.Q[action] += float(self.N[action]) ** (-1) * (reward - self.Q[action])
 
 
 class UCB(BanditAgent):
@@ -126,7 +132,11 @@ class UCB(BanditAgent):
         Use UCB action selection. Be sure to consider the case when N_t = 0 and break ties randomly (use argmax() from above)
         """
         # TODO
-        action = None
+        if 0 in self.N:
+            action_all = np.where(self.N == 0)[0]
+            action = np.random.choice(action_all)
+            return action
+        action = argmax(self.Q + self.c * np.sqrt(np.log(self.t) / self.N))
         return action
 
     def update(self, action: int, reward: float) -> None:
@@ -139,5 +149,10 @@ class UCB(BanditAgent):
         self.t += 1
 
         # TODO update self.N
-
+        self.N[action] += 1
         # TODO update self.Q
+        if self.step_size is not None:
+            self.Q[action] += self.step_size * (reward - self.Q[action])
+        # If step_size is dynamic (step_size = 1 / N(a))
+        else:
+            self.Q[action] += float(self.N[action]) ** (-1) * (reward - self.Q[action])

@@ -20,13 +20,13 @@ class BanditEnv:
         # Initialize means of each arm distributed according to standard normal
         self.means = np.random.normal(size=self.k)
 
-    def step(self, action: int) -> Tuple[float, int]:
+    def step(self, action: int) -> float:
         """Take one step in env (pull one arm) and observe reward
 
         Args:
             action (int): index of arm to pull
         """
         # TODO calculate reward of arm given by action
-        reward = None
+        reward = np.random.normal(loc=self.means[action], scale=1)
 
         return reward
