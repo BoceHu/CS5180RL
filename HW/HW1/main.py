@@ -227,7 +227,6 @@ def q7(k: int, trials: int, steps: int):
     c5_h = (c5 + 1.96 * ste[4])
     c5_l = (c5 - 1.96 * ste[4])
 
-
     upper_h = (upper_avg + 1.96 * up_ste)
     upper_l = (upper_avg - 1.96 * up_ste)
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 18), dpi=200)
@@ -251,7 +250,6 @@ def q7(k: int, trials: int, steps: int):
     ax2.plot(c5_optimal, label="UCB", c='violet')
     x = np.arange(steps)
     ax1.axhline(upper_avg, linestyle='--')
-    print(c1_l[0:4],c1_h[0:4])
     ax1.fill_between(x, c1_l, c1_h, alpha=0.4, color='mediumseagreen')
     ax1.fill_between(x, c2_l, c2_h, alpha=0.4, color='tomato')
     ax1.fill_between(x, c3_l, c3_h, alpha=0.4, color='skyblue')
@@ -276,8 +274,8 @@ def q7(k: int, trials: int, steps: int):
 
 def main():
     # TODO run code for all questions
-    # q4(10, 2000)
-    # q6(10, 2000, 2000)
+    q4(10, 2000)
+    q6(10, 2000, 2000)
     q7(10, 2000, 1000)
 
 
